@@ -49,6 +49,7 @@ export default function configureStore(initialState = {}, history) {
 
   // Make reducers hot reloadable, see http://mxs.is/googmo
   /* istanbul ignore next */
+  //  khi có bất cứ sự thay đổi nào trong source code của chúng ta, thì sự thay đó sẽ được áp dụng ngay trên app đang chạy trên browser mà không có bất cứ sự reload toàn bộ trang nào xảy ra.
   if (module.hot) {
     module.hot.accept('./reducers', () => {
       store.replaceReducer(createReducer(store.injectedReducers));

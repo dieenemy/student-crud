@@ -1,10 +1,10 @@
 /**
  *
- * MainPage
+ * StudentDetail
  *
  */
 
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -14,37 +14,49 @@ import { compose } from 'redux';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import makeSelectMainPage from './selectors';
+import makeSelectStudentDetail from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import { getStudent } from './actions';
 
-export function MainPage() {
-  useInjectReducer({ key: 'mainPage', reducer });
-  useInjectSaga({ key: 'mainPage', saga });
+export function StudentDetail({ match, fetchStudent, student }) {
+  useInjectReducer({ key: 'studentDetail', reducer });
+  useInjectSaga({ key: 'studentDetail', saga });
+
+  const { id } = match.params;
+
+  useEffect(() => {
+    if (!student || student.id !== id) {
+      // get userDetail
+      fetchStudent(id);
+    }
+  }, []);
 
   return (
     <div>
       <Helmet>
-        <title>MainPage</title>
-        <meta name="description" content="Description of MainPage" />
+        <title>StudentDetail</title>
+        <meta name="description" content="Description of StudentDetail" />
       </Helmet>
       <FormattedMessage {...messages.header} />
     </div>
   );
 }
 
-MainPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+StudentDetail.propTypes = {
+  match: PropTypes.object,
+  fetchStudent: PropTypes.func,
+  student: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
-  mainPage: makeSelectMainPage(),
+  student: makeSelectStudentDetail(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    fetchStudent: id => dispatch(getStudent(id)),
   };
 }
 
@@ -56,4 +68,4 @@ const withConnect = connect(
 export default compose(
   withConnect,
   memo,
-)(MainPage);
+)(StudentDetail);

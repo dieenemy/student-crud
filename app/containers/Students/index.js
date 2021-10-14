@@ -4,7 +4,7 @@
  *
  */
 
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -18,10 +18,36 @@ import makeSelectStudents from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import Input from './Input';
+import { getUsers, deleteStudent, createStudent } from './actions';
 
-export function Students() {
+export function Students({ fetchStudents, removeStudent, createStudentt }) {
   useInjectReducer({ key: 'students', reducer });
   useInjectSaga({ key: 'students', saga });
+
+  const [student, setStudent] = useState({
+    email: '',
+    username: '',
+    website: '',
+  });
+
+  const { email, website, username } = student;
+
+  useEffect(() => {
+    fetchStudents();
+  }, []);
+
+  const handleChange = event => {
+    const { name, value } = event.target;
+
+    setStudent({ ...student, [name]: value });
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    createStudentt({ email, website, username });
+  };
 
   return (
     <div>
@@ -30,12 +56,45 @@ export function Students() {
         <meta name="description" content="Description of Students" />
       </Helmet>
       <FormattedMessage {...messages.header} />
+      <button type="button" onClick={() => removeStudent(1)}>
+        Delete
+      </button>
+      <form action="submit" onSubmit={handleSubmit}>
+        <Input
+          id="username"
+          name="username"
+          type="text"
+          placeholder="Enter your username here"
+          value={username}
+          onChange={handleChange}
+        />
+        <Input
+          id="website"
+          name="website"
+          type="text"
+          placeholder="Enter your website name here"
+          value={website}
+          onChange={handleChange}
+        />
+        <Input
+          id="email"
+          name="email"
+          type="text"
+          email="Enter your email here"
+          value={email}
+          onChange={handleChange}
+        />
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 }
 
 Students.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  students: PropTypes.array,
+  fetchStudents: PropTypes.func,
+  removeStudent: PropTypes.func,
+  createStudentt: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -44,7 +103,9 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    fetchStudents: () => dispatch(getUsers()),
+    removeStudent: id => dispatch(deleteStudent(id)),
+    createStudentt: student => dispatch(createStudent(student)),
   };
 }
 

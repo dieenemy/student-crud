@@ -14,8 +14,10 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import Students from 'containers/Students/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
+import StudentDetail from 'containers/StudentDetail/Loadable';
 
 import GlobalStyle from '../../global-styles';
 
@@ -40,6 +42,8 @@ export default function App() {
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
+        <Route exact path="/students" component={Students} />
+        <Route exact path="/student/:id" component={StudentDetail} />
         <Route path="/features" component={FeaturePage} />
         <Route path="" component={NotFoundPage} />
       </Switch>

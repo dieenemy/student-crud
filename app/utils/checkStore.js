@@ -14,8 +14,9 @@ export default function checkStore(store) {
     injectedReducers: isObject,
     injectedSagas: isObject,
   };
+  // mô tả lỗi trong deleoplopment mode và lỗi chung trong production mode. If (error) => error, else => no error
   invariant(
-    conformsTo(store, shape),
+    conformsTo(store, shape), // check object phù hợp với source không return true, false
     '(app/utils...) injectors: Expected a valid redux store',
   );
 }

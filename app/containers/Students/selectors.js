@@ -18,7 +18,7 @@ const selectStudentsDomain = state => state.students || initialState;
 const makeSelectStudents = () =>
   createSelector(
     selectStudentsDomain,
-    substate => substate,
+    studentState => studentState.students,
   );
 
 export default makeSelectStudents;

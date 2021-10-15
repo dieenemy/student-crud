@@ -25,7 +25,12 @@ import messages from './messages';
 import Input from './Input';
 import { getUsers, deleteStudent, createStudent } from './actions';
 
-export function Students({ fetchStudents, removeStudent, createStudentt }) {
+export function Students({
+  fetchStudents,
+  removeStudent,
+  createStudentt,
+  students,
+}) {
   useInjectReducer({ key: 'students', reducer });
   useInjectSaga({ key: 'students', saga });
 
@@ -36,6 +41,8 @@ export function Students({ fetchStudents, removeStudent, createStudentt }) {
   });
 
   const { email, website, username } = student;
+
+  console.log(students);
 
   useEffect(() => {
     fetchStudents();

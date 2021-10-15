@@ -14,7 +14,11 @@ import { compose } from 'redux';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import makeSelectStudents from './selectors';
+import makeSelectStudents, {
+  makeSelectLoading,
+  makeSelectError,
+  makeSelectMessage,
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -99,6 +103,9 @@ Students.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   students: makeSelectStudents(),
+  loading: makeSelectLoading(),
+  error: makeSelectError(),
+  message: makeSelectMessage(),
 });
 
 function mapDispatchToProps(dispatch) {

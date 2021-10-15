@@ -15,7 +15,7 @@ export function injectReducerFactory(store, isValid) {
 
     // Check `store.injectedReducers[key] === reducer` for hot reloading when a key is the same but a reducer is different
     if (
-      Reflect.has(store.injectedReducers, key) &&
+      Reflect.has(store.injectedReducers, key) && // check xem property có trong target objec không
       store.injectedReducers[key] === reducer
     )
       return;

@@ -21,5 +21,28 @@ const makeSelectStudents = () =>
     studentState => studentState.students,
   );
 
+const makeSelectLoading = () =>
+  createSelector(
+    selectStudentsDomain,
+    studentState => studentState.loading,
+  );
+
+const makeSelectError = () =>
+  createSelector(
+    selectStudentsDomain,
+    studentState => studentState.error,
+  );
+
+const makeSelectMessage = () =>
+  createSelector(
+    selectStudentsDomain,
+    studentState => studentState.message,
+  );
+
 export default makeSelectStudents;
-export { selectStudentsDomain };
+export {
+  selectStudentsDomain,
+  makeSelectLoading,
+  makeSelectError,
+  makeSelectMessage,
+};

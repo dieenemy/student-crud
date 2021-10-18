@@ -4,7 +4,7 @@ export const MainContent = styled.div`
   box-sizing: border-box;
   width: calc(100vw - 261px);
   margin-left: 260px;
-  padding: 2rem 20rem;
+  padding: 2rem 18rem;
   min-height: calc(100vh - 98px);
   background: #f4ffef;
   border-radius: 4px;

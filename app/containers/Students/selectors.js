@@ -15,10 +15,22 @@ const selectStudentsDomain = state => state.students || initialState;
  * Default selector used by Students
  */
 
-const makeSelectStudents = () =>
+const makeSelectStudentsData = () =>
   createSelector(
     selectStudentsDomain,
     studentState => studentState.students,
+  );
+
+const makeSelectRecordsTotal = () =>
+  createSelector(
+    selectStudentsDomain,
+    studentState => studentState.recordsTotal,
+  );
+
+const makeSelectRecordsFiltered = () =>
+  createSelector(
+    selectStudentsDomain,
+    studentState => studentState.recordsFiltered,
   );
 
 const makeSelectLoading = () =>
@@ -39,10 +51,12 @@ const makeSelectMessage = () =>
     studentState => studentState.message,
   );
 
-export default makeSelectStudents;
+export default makeSelectStudentsData;
 export {
   selectStudentsDomain,
   makeSelectLoading,
   makeSelectError,
   makeSelectMessage,
+  makeSelectRecordsTotal,
+  makeSelectRecordsFiltered,
 };

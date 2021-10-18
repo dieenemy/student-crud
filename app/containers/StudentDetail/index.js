@@ -27,6 +27,7 @@ export function StudentDetail({ match, fetchStudent, student }) {
   const { id } = match.params;
 
   useEffect(() => {
+    console.log('312312');
     if (!student || student.id !== id) {
       // get userDetail
       fetchStudent(id);

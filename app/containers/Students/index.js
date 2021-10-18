@@ -1,128 +1,103 @@
-/**
- *
- * Students
- *
- */
-
 import React, { memo, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import { createStructuredSelector } from 'reselect';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
+import { MainContent, Title } from './Student.styled';
+import StudentChild from './StudentChild';
+import { getUsers } from './actions';
 import makeSelectStudents, {
   makeSelectLoading,
   makeSelectError,
   makeSelectMessage,
+  makeSelectRecordsTotal,
+  makeSelectRecordsFiltered,
 } from './selectors';
-import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
-import Input from './Input';
-import { getUsers, deleteStudent, createStudent } from './actions';
+import reducer from './reducer';
+import LoadingIndicator from '../../components/LoadingIndicator';
 
-export function Students({
+function Student({
   fetchStudents,
-  removeStudent,
-  createStudentt,
   students,
+  recordsTotal,
+  recordsFiltered,
+  loading,
+  error,
+  message,
 }) {
   useInjectReducer({ key: 'students', reducer });
   useInjectSaga({ key: 'students', saga });
 
-  const [student, setStudent] = useState({
-    email: '',
-    username: '',
-    website: '',
-  });
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const { email, website, username } = student;
+  const totalPage = Math.ceil(recordsTotal / recordsFiltered);
 
-  console.log(students);
-
+  const showMoreItems = () => {
+    setCurrentPage(preValue => preValue + 1);
+  };
   useEffect(() => {
-    fetchStudents();
-  }, []);
+    fetchStudents({
+      search: '',
+      page: currentPage,
+      limit: 3,
+    });
+  }, [currentPage]);
 
-  const handleChange = event => {
-    const { name, value } = event.target;
+  if (loading) {
+    return <LoadingIndicator />;
+  }
 
-    setStudent({ ...student, [name]: value });
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-
-    createStudentt({ email, website, username });
-  };
+  if (error) {
+    return message;
+  }
 
   return (
-    <div>
-      <Helmet>
-        <title>Students</title>
-        <meta name="description" content="Description of Students" />
-      </Helmet>
-      <FormattedMessage {...messages.header} />
-      <button type="button" onClick={() => removeStudent(1)}>
-        Delete
-      </button>
-      <form action="submit" onSubmit={handleSubmit}>
-        <Input
-          id="username"
-          name="username"
-          type="text"
-          placeholder="Enter your username here"
-          value={username}
-          onChange={handleChange}
+    <MainContent>
+      <div>Student details</div>
+      <Title>
+        <span>No</span>
+        <span>Name</span>
+
+        <span>Address</span>
+        <span>Gender</span>
+        <span>Birthday</span>
+        <span>More</span>
+      </Title>
+      {students.map(student => (
+        <StudentChild
+          key={student.id}
+          id={student.id}
+          name={student.name}
+          address={student.address}
+          gender={student.gender}
+          birthday={student.dOB}
         />
-        <Input
-          id="website"
-          name="website"
-          type="text"
-          placeholder="Enter your website name here"
-          value={website}
-          onChange={handleChange}
-        />
-        <Input
-          id="email"
-          name="email"
-          type="text"
-          email="Enter your email here"
-          value={email}
-          onChange={handleChange}
-        />
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+      ))}
+      {currentPage !== totalPage && (
+        <button type="button" onClick={showMoreItems}>
+          Load More
+        </button>
+      )}
+    </MainContent>
   );
 }
-
-Students.propTypes = {
-  students: PropTypes.array,
-  fetchStudents: PropTypes.func,
-  removeStudent: PropTypes.func,
-  createStudentt: PropTypes.func,
-};
-
 const mapStateToProps = createStructuredSelector({
   students: makeSelectStudents(),
   loading: makeSelectLoading(),
   error: makeSelectError(),
   message: makeSelectMessage(),
+  recordsTotal: makeSelectRecordsTotal(),
+  recordsFiltered: makeSelectRecordsFiltered(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchStudents: () => dispatch(getUsers()),
-    removeStudent: id => dispatch(deleteStudent(id)),
-    createStudentt: student => dispatch(createStudent(student)),
+    fetchStudents: obj => dispatch(getUsers(obj)),
   };
 }
-
 const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,
@@ -131,4 +106,4 @@ const withConnect = connect(
 export default compose(
   withConnect,
   memo,
-)(Students);
+)(Student);

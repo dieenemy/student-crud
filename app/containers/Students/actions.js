@@ -12,16 +12,17 @@ export function defaultAction() {
   };
 }
 
-export function getUsers() {
+export function getUsers(obj) {
   return {
     type: constants.GET_STUDENTS_REQUEST,
+    obj,
   };
 }
 
-export function getUsersSuccess(users) {
+export function getUsersSuccess(students) {
   return {
     type: constants.GET_STUDENTS_SUCCESS,
-    users,
+    students,
   };
 }
 

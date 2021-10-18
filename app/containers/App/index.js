@@ -11,12 +11,12 @@ import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 
-// import FeaturePage from 'containers/FeaturePage/Loadable';
+import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Students from 'containers/Students/Loadable';
 import Header from 'components/Header';
 import StudentDetail from 'containers/StudentDetail/Loadable';
-import Student from '../Student/Student';
+// import Student from '../Student/Student';
 import Class from '../Class/Class';
 import Subject from '../Subject/Subject';
 
@@ -43,11 +43,12 @@ export default function App() {
       <Sidebar />
 
       <Switch>
-        <Route exact path="/students" component={Students} />
-        <Route exact path="/student/:id" component={StudentDetail} />
-        <Route exact path="/" component={Student} />
+        {/* <Route path="/students" component={Students} /> */}
+        <Route path="/student/:id" component={StudentDetail} />
+        <Route exact path="/" component={Students} />
         <Route path="/classes" component={Class} />
         <Route path="/subjects" component={Subject} />
+        <Route path="/homepage" component={HomePage} />
         <Route path="" component={NotFoundPage} />
       </Switch>
       {/* <Footer /> */}

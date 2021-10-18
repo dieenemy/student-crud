@@ -11,6 +11,8 @@ export const initialState = {
   loading: false,
   error: false,
   message: '',
+  recordsTotal: '',
+  recordsFiltered: '',
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -25,11 +27,14 @@ const studentsReducer = (state = initialState, action) =>
         break;
       case constants.GET_STUDENTS_SUCCESS:
         draft.loading = false;
-        draft.students = action.users;
+        draft.students = draft.students.concat(action.students.data);
+        draft.recordsTotal = action.students.recordsTotal;
+        draft.recordsFiltered = action.students.recordsFiltered;
         break;
       case constants.GET_STUDENTS_FAILED:
         draft.message = action.error;
         draft.error = true;
+        draft.loading = false;
         break;
       case constants.DELETE_STUDENT_REQUEST:
         draft.loading = true;

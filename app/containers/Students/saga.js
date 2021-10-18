@@ -19,12 +19,17 @@ import {
   createStudentFailed,
 } from './actions';
 
-export function* studentsSaga() {
+export function* studentsSaga(action) {
+  console.log(action);
+  const { obj } = action;
   // See example in containers/HomePage/saga.js
-  const requestURL = `https://jsonplaceholder.typicode.com/users?limit=10`;
+  const requestURL = `http://10.9.11.134:8080/api/students?${new URLSearchParams(
+    obj,
+  )}`;
   try {
-    const users = yield call(request, requestURL);
-    yield put(getUsersSuccess(users));
+    const students = yield call(request, requestURL);
+    console.log(students);
+    yield put(getUsersSuccess(students));
   } catch (err) {
     yield put(getUsersFailed(err));
   }

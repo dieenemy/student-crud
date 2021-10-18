@@ -21,13 +21,13 @@ export const Logo = styled.div`
   justify-content: center;
   color: rgb(124, 209, 13) !important;
   /* transform: scale(1.6) !important; */
-  padding: 4rem 0;
+  padding: 2rem 0 4rem 0;
   margin-bottom: 1rem;
   /* pointer-events: none; */
 
   svg {
-    height: 5rem;
-    width: 5rem;
+    height: 8rem;
+    width: 8rem;
   }
 `;
 export const NavBar = styled.ul`

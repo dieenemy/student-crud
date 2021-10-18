@@ -1,31 +1,36 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { BeakerIcon } from '@heroicons/react/solid';
+import {
+  CloudUploadIcon,
+  UserCircleIcon,
+  BookmarkAltIcon,
+  ClipboardListIcon,
+} from '@heroicons/react/solid';
 import { SideBarContainer, Logo, NavBar } from './Sidebar.styled';
 
 function Sidebar() {
   return (
     <SideBarContainer>
       <Logo>
-        <BeakerIcon className="logo-icon" />
+        <CloudUploadIcon className="logo-icon" />
       </Logo>
 
       <NavBar>
         <li>
           <NavLink to="/" exact>
-            <BeakerIcon />
+            <UserCircleIcon />
             <span>Students</span>
           </NavLink>
         </li>
         <li>
           <NavLink to="/classes">
-            <BeakerIcon />
+            <BookmarkAltIcon />
             <span>Class</span>
           </NavLink>
         </li>
         <li>
           <NavLink to="/subjects">
-            <BeakerIcon />
+            <ClipboardListIcon />
             <span>Subject</span>
           </NavLink>
         </li>

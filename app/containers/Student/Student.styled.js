@@ -1,8 +1,8 @@
 import styled from 'styled-components';
+import { ChildContent } from './StudentChild.styled';
 
 export const MainContent = styled.div`
-  box-sizing: border-box;
-  width: calc(100vw - 275px);
+  width: calc(100vw - 261px);
   margin-left: 260px;
   padding: 1rem 2rem;
   min-height: calc(100vh - 98px);
@@ -19,46 +19,20 @@ export const MainContent = styled.div`
     background-color: rgb(47, 167, 47);
     border: none;
     border-radius: 4rem;
-    color: white;
   }
 
   div {
-    &:first-child {
+    &:nth-child(1) {
       font-size: 20px;
       font-weight: 600;
       background-color: #f4ffef;
       border-right: none;
       border-left: none;
     }
-
-    background-color: white;
-    display: flex;
-    align-items: center;
-    padding: 0.6rem 1rem;
-    border: 1px solid lightgray;
-    border-top: none;
-
-    > * {
-      flex: 1;
-    }
-    span {
-      svg {
-        /* padding: 0.4rem 1rem; */
-        height: 2rem;
-        width: 2rem;
-
-        &:first-child {
-          color: rgb(47, 167, 47);
-          margin-right: 2rem;
-        }
-        &:last-child {
-          color: rgb(233, 87, 87);
-        }
-      }
-    }
   }
-  .title {
-    padding: 0.4rem 1.2rem;
-    background-color: #f4ffef;
-  }
+`;
+export const Title = styled(ChildContent)`
+  padding: 0.4rem 1.2rem;
+  background-color: #f4ffef;
+  border-top: 1px solid lightgray;
 `;

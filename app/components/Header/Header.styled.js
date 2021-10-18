@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   margin-left: 260px;
+  width: calc(100vw - 261px);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -39,11 +40,13 @@ export const Right = styled.div`
     padding: 0.6rem 1.8rem;
     background: rgb(47, 167, 47);
     font-size: 18px;
+    font-weight: 500;
     border-radius: 0.2rem;
     margin: 1.2rem 0;
     border: none;
     display: flex;
     align-items: center;
+    /* color: white; */
 
     svg {
       height: 1.6rem;

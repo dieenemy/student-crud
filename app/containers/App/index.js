@@ -24,12 +24,9 @@ import GlobalStyle from '../../global-styles';
 import Sidebar from '../../components/Sidebar/Sidebar';
 
 const AppWrapper = styled.div`
-  /* max-width: calc(768px + 16px * 2);
-  margin: 0 auto;
-  display: flex;
-  min-height: 100%;
-  padding: 0 16px;
-  flex-direction: column; */
+  overflow-x: hidden;
+  box-sizing: border-box;
+  background-color: #f4ffef;
 `;
 
 export default function App() {
@@ -41,8 +38,10 @@ export default function App() {
       >
         <meta name="description" content="A React.js Boilerplate application" />
       </Helmet>
+
       <Header />
       <Sidebar />
+
       <Switch>
         <Route exact path="/students" component={Students} />
         <Route exact path="/student/:id" component={StudentDetail} />

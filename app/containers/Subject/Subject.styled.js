@@ -2,10 +2,9 @@ import styled from 'styled-components';
 
 export const MainContent = styled.div`
   box-sizing: border-box;
-  width: calc(100vw - 275px);
-  /* margin: 1rem 2rem 2rem 310px; */
+  width: calc(100vw - 261px);
   margin-left: 260px;
-  padding: 1rem 2rem;
+  padding: 2rem 20rem;
   min-height: calc(100vh - 98px);
   background: #f4ffef;
   border-radius: 4px;
@@ -20,7 +19,6 @@ export const MainContent = styled.div`
     background-color: rgb(47, 167, 47);
     border: none;
     border-radius: 4rem;
-    color: white;
   }
 
   div {
@@ -42,19 +40,20 @@ export const MainContent = styled.div`
     > * {
       flex: 1;
       &:last-child {
-        /* flex-basis: 50%; */
         margin-left: 40%;
       }
     }
     span {
       svg {
-        /* padding: 0.4rem 1rem; */
         height: 2rem;
         width: 2rem;
+        margin-right: 2rem;
 
         &:first-child {
           color: rgb(47, 167, 47);
-          margin-right: 2rem;
+        }
+        &:nth-child(2) {
+          color: purple;
         }
         &:last-child {
           color: rgb(233, 87, 87);

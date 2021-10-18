@@ -1,6 +1,6 @@
 import React from 'react';
-import { PlusCircleIcon, XCircleIcon } from '@heroicons/react/solid';
 import { MainContent } from '../Subject/Subject.styled';
+import ClassChild from './ClassChild';
 
 function Class() {
   return (
@@ -11,22 +11,7 @@ function Class() {
         <span>Name</span>
         <span>More</span>
       </div>
-      <div>
-        <span>1</span>
-        <span>Information Technology</span>
-        <span>
-          <PlusCircleIcon />
-          <XCircleIcon />
-        </span>
-      </div>
-      <div>
-        <span>1</span>
-        <span>Information Technology</span>
-        <span>
-          <PlusCircleIcon />
-          <XCircleIcon />
-        </span>
-      </div>
+      <ClassChild />
       <button type="button">Load More</button>
     </MainContent>
   );

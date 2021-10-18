@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import { ArrowCircleRightIcon, SearchIcon } from '@heroicons/react/solid';
 import { Container, Left, Right } from './Header.styled';
 import ModalStudent from './ModalStudent';
+import ModalClass from './ModalClass';
+import ModalSubject from './ModalSubject';
 
-function Header() {
+function Header(props) {
+  // const location = useLocation();
+  const page = props.location.pathname;
+
   const [isOpenModal, setIsOpenModal] = useState(false);
   return (
     <Container>
@@ -17,13 +23,30 @@ function Header() {
           <ArrowCircleRightIcon />
         </button>
       </Right>
-      <ModalStudent
-        titleValue="Add a Student"
-        open={isOpenModal}
-        onClose={() => setIsOpenModal(false)}
-      />
+
+      {page === '/' && (
+        <ModalStudent
+          titleValue="Add a Student"
+          open={isOpenModal}
+          onClose={() => setIsOpenModal(false)}
+        />
+      )}
+      {page === '/classes' && (
+        <ModalClass
+          titleValue="Add a Class"
+          open={isOpenModal}
+          onClose={() => setIsOpenModal(false)}
+        />
+      )}
+      {page === '/subjects' && (
+        <ModalSubject
+          titleValue="Add a Subject"
+          open={isOpenModal}
+          onClose={() => setIsOpenModal(false)}
+        />
+      )}
     </Container>
   );
 }
 
-export default Header;
+export default withRouter(Header);

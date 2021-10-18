@@ -46,7 +46,11 @@ export const Right = styled.div`
     border: none;
     display: flex;
     align-items: center;
-    /* color: white; */
+    color: white;
+    transition: all 150ms cubic-bezier(0.175, 0.885, 0.32, 1.275) ease-in-out;
+    &:active {
+      transform: scale(1.1);
+    }
 
     svg {
       height: 1.6rem;

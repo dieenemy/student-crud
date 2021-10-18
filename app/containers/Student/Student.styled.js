@@ -12,13 +12,21 @@ export const MainContent = styled.div`
   position: relative;
 
   button {
-    position: absolute;
-    right: 5%;
-    bottom: 5%;
     padding: 0.8rem 1.6rem;
     background-color: rgb(47, 167, 47);
     border: none;
     border-radius: 4rem;
+    display: flex;
+    margin-left: auto;
+    margin-top: 2rem;
+    color: white;
+    transition: all 150ms cubic-bezier(0.175, 0.885, 0.32, 1.275) ease-in-out;
+    &:active {
+      transform: scale(1.1);
+    }
+  }
+  button.hiddenButton {
+    display: none;
   }
 
   div {

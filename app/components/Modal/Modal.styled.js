@@ -32,4 +32,7 @@ export const Form = styled.div`
       background-color: rgba(0, 105, 0, 0.3);
     }
   }
+  select {
+    padding: 0.6rem 0.4rem;
+  }
 `;

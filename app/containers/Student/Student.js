@@ -25,15 +25,16 @@ function Student({ fetchStudents, removeStudent, createStudentt, students }) {
     username: '',
     website: '',
   });
-  const [visibleStudent, setVisibleStudent] = useState(5);
+  const [visibleStudent, setVisibleStudent] = useState(12);
   const showMoreItems = () => {
-    setVisibleStudent(preValue => preValue + 5);
+    setVisibleStudent(preValue => preValue + 10);
   };
   // const { email, website, username } = student;
+
   useEffect(() => {
     fetchStudents();
   }, []);
-
+  const hiddenClass = students.length < 12 ? 'hiddenButton' : '';
   return (
     <MainContent>
       <div>Student details</div>
@@ -57,7 +58,7 @@ function Student({ fetchStudents, removeStudent, createStudentt, students }) {
         />
       ))}
 
-      <button type="button" onClick={showMoreItems}>
+      <button type="button" className={hiddenClass} onClick={showMoreItems}>
         Load More
       </button>
     </MainContent>

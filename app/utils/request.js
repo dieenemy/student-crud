@@ -6,6 +6,7 @@
  * @return {object}          The parsed JSON from the request
  */
 function parseJSON(response) {
+  // 204 === 'No content', 205 === 'Reset content'
   if (response.status === 204 || response.status === 205) {
     return null;
   }

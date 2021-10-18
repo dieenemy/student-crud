@@ -2,6 +2,8 @@
  * Create the store with dynamic reducers
  */
 
+// tránh việc có thể có tới rất nhiều Redux modules, và trong số đó nhiều cái chỉ sử dụng ở một số components và không cần thiết phải được khởi tạo từ đầu
+
 import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'connected-react-router';
 import createSagaMiddleware from 'redux-saga';
@@ -44,11 +46,13 @@ export default function configureStore(initialState = {}, history) {
 
   // Extensions
   store.runSaga = sagaMiddleware.run;
+  // cho phép Redux reducers, saga có thể add vào reducer của store sau khi store đã được tạo ra.
   store.injectedReducers = {}; // Reducer registry
   store.injectedSagas = {}; // Saga registry
 
   // Make reducers hot reloadable, see http://mxs.is/googmo
   /* istanbul ignore next */
+  //  khi có bất cứ sự thay đổi nào trong source code của chúng ta, thì sự thay đó sẽ được áp dụng ngay trên app đang chạy trên browser mà không có bất cứ sự reload toàn bộ trang nào xảy ra.
   if (module.hot) {
     module.hot.accept('./reducers', () => {
       store.replaceReducer(createReducer(store.injectedReducers));

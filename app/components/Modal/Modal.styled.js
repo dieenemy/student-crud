@@ -18,7 +18,7 @@ export const ModalContent = styled.div`
   padding: 1.6rem 7rem;
   border-radius: 0.4rem;
 `;
-export const Form = styled.div`
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
   span {

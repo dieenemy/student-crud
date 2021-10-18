@@ -51,11 +51,18 @@ const makeSelectMessage = () =>
     studentState => studentState.message,
   );
 
+const makeSelectSuccess = () =>
+  createSelector(
+    selectStudentsDomain,
+    studentState => studentState.success,
+  );
+
 export default makeSelectStudentsData;
 export {
   selectStudentsDomain,
   makeSelectLoading,
   makeSelectError,
+  makeSelectSuccess,
   makeSelectMessage,
   makeSelectRecordsTotal,
   makeSelectRecordsFiltered,

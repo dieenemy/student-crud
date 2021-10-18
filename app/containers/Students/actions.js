@@ -70,3 +70,23 @@ export function createStudentFailed() {
     type: constants.CREATE_STUDENT_FAILED,
   };
 }
+
+export function updateStudentRequest(id, student) {
+  return {
+    type: constants.CREATE_STUDENT_REQUEST,
+    student,
+    id,
+  };
+}
+
+export function updateStudentSuccess() {
+  return {
+    type: constants.CREATE_STUDENT_SUCCESS,
+  };
+}
+
+export function updateStudentFailed() {
+  return {
+    type: constants.CREATE_STUDENT_FAILED,
+  };
+}

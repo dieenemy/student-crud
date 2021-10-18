@@ -9,6 +9,7 @@ import {
   GET_STUDENTS_REQUEST,
   DELETE_STUDENT_REQUEST,
   CREATE_STUDENT_REQUEST,
+  UPDATE_STUDENT_REQUEST,
 } from './constants';
 import {
   getUsersSuccess,
@@ -17,10 +18,11 @@ import {
   deleteStudentFailed,
   createStudentSuccess,
   createStudentFailed,
+  updateStudentSuccess,
+  updateStudentFailed,
 } from './actions';
 
 export function* studentsSaga(action) {
-  console.log(action);
   const { obj } = action;
   // See example in containers/HomePage/saga.js
   const requestURL = `http://10.9.11.134:8080/api/students?${new URLSearchParams(
@@ -28,7 +30,6 @@ export function* studentsSaga(action) {
   )}`;
   try {
     const students = yield call(request, requestURL);
-    console.log(students);
     yield put(getUsersSuccess(students));
   } catch (err) {
     yield put(getUsersFailed(err));
@@ -37,7 +38,7 @@ export function* studentsSaga(action) {
 
 export function* deleteStudentSaga(action) {
   const { id } = action;
-  const requestURL = `https://jsonplaceholder.typicode.com/users/${id}`;
+  const requestURL = `http://10.9.11.134:8080/api/students/${id}`;
   const options = {
     method: 'DELETE',
   };
@@ -51,10 +52,14 @@ export function* deleteStudentSaga(action) {
 
 export function* createStudentSaga(action) {
   const { student } = action;
-  const requestURL = `https://jsonplaceholder.typicode.com/users`;
+  const requestURL = 'http://10.9.11.134:8080/api/students';
   const options = {
     method: 'POST',
     body: JSON.stringify(student),
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
   };
   try {
     const response = yield call(request, requestURL, options);
@@ -64,8 +69,29 @@ export function* createStudentSaga(action) {
   }
 }
 
+export function* updateStudentSaga(action) {
+  const { student } = action.student;
+
+  const requestURL = `http://10.9.11.134:8080/api/students/${action.id}`;
+  const options = {
+    method: 'PUT',
+    body: JSON.stringify(student),
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  };
+  try {
+    const response = yield call(request, requestURL, options);
+    yield put(updateStudentSuccess(response));
+  } catch (err) {
+    yield put(updateStudentFailed(err));
+  }
+}
+
 export default function* Students() {
   yield takeLatest(GET_STUDENTS_REQUEST, studentsSaga);
   yield takeLatest(DELETE_STUDENT_REQUEST, deleteStudentSaga);
   yield takeLatest(CREATE_STUDENT_REQUEST, createStudentSaga);
+  yield takeLatest(UPDATE_STUDENT_REQUEST, updateStudentSaga);
 }

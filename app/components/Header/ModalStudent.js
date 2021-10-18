@@ -1,65 +1,152 @@
-import React, { memo, useRef } from 'react';
+import React, { memo, useState } from 'react';
 // import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import makeSelectStudents, {
+import {
   makeSelectLoading,
   makeSelectError,
   makeSelectMessage,
 } from '../../containers/Students/selectors';
-import { createStudent } from '../../containers/Students/actions';
+import {
+  createStudent,
+  updateStudentRequest,
+} from '../../containers/Students/actions';
 import Modal from '../Modal/Modal';
 import { Form } from '../Modal/Modal.styled';
 import { FootModal } from './ModalStudent.styled';
+import LoadingIndicator from '../LoadingIndicator';
 
-function ModalStudent({ open, onClose, titleValue }) {
-  const nameRef = useRef();
-  const ageRef = useRef();
-  const addressRef = useRef();
-  const genderRef = useRef();
-  const birthdayRef = useRef();
+function ModalStudent({
+  open,
+  onClose,
+  titleValue,
+  createNewStudent,
+  loading,
+  message,
+  error,
+  mode,
+  id,
+  success,
+}) {
+  const [studentName, setStudentName] = useState('');
+  const [age, setAge] = useState('');
+  const [address, setAddress] = useState('');
+  const [gender, setGender] = useState('');
+  const [dOB, setDOB] = useState('');
+  const [classDTO, setClassDTO] = useState({ id: 1 });
 
-  const createStudentHandler = event => {
-    event.preventDefault();
-    const name = nameRef.current.value;
-    const age = nameRef.current.value;
-    const address = nameRef.current.value;
-    const gender = nameRef.current.value;
-    const birthday = nameRef.current.value;
-    createStudent({ name, age, address, gender, birthday });
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setClassDTO({ ...classDTO, [name]: +value });
   };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (mode === 'create') {
+      createNewStudent({
+        name: studentName,
+        age,
+        address,
+        gender,
+        dOB,
+        classDTO,
+      });
+    }
+
+    updateStudentRequest(id, {
+      name: studentName,
+      age,
+      address,
+      gender,
+      dOB,
+      classDTO,
+    });
+    e.target.reset();
+  };
+
+  const data = [
+    {
+      value: 1,
+      name: 'Math',
+    },
+    {
+      value: 2,
+      name: 'Physical',
+    },
+    {
+      value: 3,
+      name: 'Biology',
+    },
+  ];
+
+  if (loading) {
+    return <LoadingIndicator />;
+  }
+
+  if (error) {
+    return message;
+  }
+
   return (
     <Modal open={open}>
+      {success && message}
       <h2>{titleValue}</h2>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <span>Name</span>
-        <input ref={nameRef} type="text" name="name" />
+        <input
+          value={studentName}
+          type="text"
+          name="name"
+          onChange={e => setStudentName(e.target.value)}
+        />
         <span>Age</span>
-        <input ref={ageRef} type="text" name="age" />
+        <input
+          value={age}
+          type="text"
+          name="age"
+          onChange={e => setAge(e.target.value)}
+        />
         <span>Address</span>
-        <input ref={addressRef} type="text" name="address" />
+        <input
+          value={address}
+          type="text"
+          name="address"
+          onChange={e => setAddress(e.target.value)}
+        />
         <span>Gender</span>
-        <input ref={genderRef} type="text" name="gender" />
+        <input
+          value={gender}
+          type="text"
+          name="gender"
+          onChange={e => setGender(e.target.value)}
+        />
         <span>Birthday</span>
-        <input ref={birthdayRef} type="text" name="birthday" />
+        <input
+          value={dOB}
+          type="text"
+          name="birthday"
+          onChange={e => setDOB(e.target.value)}
+        />
         <span>Class</span>
-        <select name="classes">
-          <option value="CNTT1">CNTT1</option>
-          <option value="CNTT2">CNTT2</option>
-          <option value="CNTT3">CNTT3</option>
-          <option value="CNTT4">CNTT4</option>
+        <select name="id" onChange={handleChange}>
+          <option>Please select</option>
+          {data.map(item => (
+            <option key={item.value} value={item.value}>
+              {item.name}
+            </option>
+          ))}
         </select>
+        <FootModal>
+          <button disabled={loading} type="submit">
+            Submit
+          </button>
+          <button type="button" onClick={onClose}>
+            Cancel
+          </button>
+        </FootModal>
       </Form>
-      <FootModal>
-        <button type="button" onClick={createStudentHandler}>
-          Submit
-        </button>
-        <button type="button" onClick={onClose}>
-          Cancel
-        </button>
-      </FootModal>
     </Modal>
   );
 }
@@ -73,11 +160,10 @@ ModalStudent.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createStudent: student => dispatch(createStudent(student)),
+    createNewStudent: student => dispatch(createStudent(student)),
   };
 }
 const mapStateToProps = createStructuredSelector({
-  students: makeSelectStudents(),
   loading: makeSelectLoading(),
   error: makeSelectError(),
   message: makeSelectMessage(),

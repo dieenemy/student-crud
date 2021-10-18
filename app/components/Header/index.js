@@ -29,6 +29,7 @@ function Header(props) {
           titleValue="Add a Student"
           open={isOpenModal}
           onClose={() => setIsOpenModal(false)}
+          mode="create"
         />
       )}
       {page === '/classes' && (

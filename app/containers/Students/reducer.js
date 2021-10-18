@@ -13,6 +13,7 @@ export const initialState = {
   message: '',
   recordsTotal: '',
   recordsFiltered: '',
+  success: false,
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -27,6 +28,7 @@ const studentsReducer = (state = initialState, action) =>
         break;
       case constants.GET_STUDENTS_SUCCESS:
         draft.loading = false;
+        draft.success = true;
         draft.students = draft.students.concat(action.students.data);
         draft.recordsTotal = action.students.recordsTotal;
         draft.recordsFiltered = action.students.recordsFiltered;
@@ -35,16 +37,19 @@ const studentsReducer = (state = initialState, action) =>
         draft.message = action.error;
         draft.error = true;
         draft.loading = false;
+        draft.success = false;
         break;
       case constants.DELETE_STUDENT_REQUEST:
         draft.loading = true;
         break;
       case constants.DELETE_STUDENT_SUCCESS:
         draft.loading = false;
+        draft.success = true;
         draft.message = 'Deleted successfully';
         break;
       case constants.DELETE_STUDENT_FAILED:
         draft.error = true;
+        draft.success = false;
         draft.message = action.error;
         break;
       case constants.CREATE_STUDENT_REQUEST:
@@ -52,11 +57,26 @@ const studentsReducer = (state = initialState, action) =>
         break;
       case constants.CREATE_STUDENT_SUCCESS:
         draft.loading = false;
+        draft.success = true;
         draft.message = 'Created successfully';
         break;
       case constants.CREATE_STUDENT_FAILED:
         draft.error = true;
         draft.message = action.error;
+        draft.success = false;
+        break;
+      case constants.UPDATE_STUDENT_REQUEST:
+        draft.loading = true;
+        break;
+      case constants.UPDATE_STUDENT_SUCCESS:
+        draft.loading = false;
+        draft.success = true;
+        draft.message = 'Updated successfully';
+        break;
+      case constants.UPDATE_STUDENT_FAILED:
+        draft.error = true;
+        draft.message = action.error;
+        draft.success = false;
         break;
     }
   });

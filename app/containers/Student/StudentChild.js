@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { PencilIcon, XCircleIcon, EyeIcon } from '@heroicons/react/solid';
+import { Link } from 'react-router-dom';
 import { ChildContent } from './StudentChild.styled';
 import ModalStudent from '../../components/Header/ModalStudent';
 import StudentModalView from './StudentModalView';
@@ -15,7 +16,9 @@ function StudentChild({ id, name, address, gender, birthday }) {
       <span>{gender}</span>
       <span>{birthday}</span>
       <span>
-        <EyeIcon onClick={() => setIsOpenViewUpdateModal(true)} />
+        <Link to={`/students/${id}`}>
+          <EyeIcon onClick={() => setIsOpenViewUpdateModal(true)} />
+        </Link>
         <PencilIcon onClick={() => setIsOpenUpdateModal(true)} />
         <XCircleIcon />
       </span>

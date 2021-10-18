@@ -44,7 +44,7 @@ export default function App() {
 
       <Switch>
         <Route exact path="/students" component={Students} />
-        <Route exact path="/student/:id" component={StudentDetail} />
+        <Route exact path="/students/:id" component={StudentDetail} />
         <Route exact path="/" component={Student} />
         <Route path="/classes" component={Class} />
         <Route path="/subjects" component={Subject} />

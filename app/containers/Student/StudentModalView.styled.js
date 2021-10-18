@@ -1,12 +1,6 @@
 import styled from 'styled-components';
 import { FootModal } from '../../components/Header/ModalStudent.styled';
 
-export const Container = styled.div`
-  display: flex;
-  > * {
-    flex: 1;
-  }
-`;
 export const StudentInfo = styled.div`
   display: flex;
   flex-direction: column;
@@ -25,24 +19,32 @@ export const StudentInfo = styled.div`
 export const SubjectInfo = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: 18px;
-  margin-top: 0.5rem;
 
-  p {
+  /* p {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    border-bottom: 1px solid lightgray;
 
-    :first-child {
-      border-bottom: 1px solid lightgray;
+    input {
+      border: none;
+      background-color: inherit;
+      margin-left: 10rem;
     }
-    > * {
-      flex: 1;
-    }
+  } */
+  /* button {
+    position: absolute;
+    width: 10rem;
+    height: 3rem;
+    right: -14rem;
+    bottom: 4%;
+    padding: 0.4rem 1rem;
+    background-color: #2fa72f;
+    color: white;
+    border: none; */
   }
 `;
 export const CancelButton = styled(FootModal)`
   position: absolute;
   bottom: 5%;
   right: 5%;
+  color: white;
 `;

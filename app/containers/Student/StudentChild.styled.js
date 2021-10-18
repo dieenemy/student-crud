@@ -12,18 +12,20 @@ export const ChildContent = styled.div`
     flex: 1;
   }
   span {
+    a {
+      svg {
+        color: rgb(47, 167, 47);
+      }
+    }
+
     svg {
       height: 2rem;
       width: 2rem;
       margin-right: 2rem;
-
-      &:first-child {
-        color: rgb(47, 167, 47);
-      }
       &:nth-child(2) {
         color: purple;
       }
-      &:last-child {
+      &:nth-child(3) {
         color: rgb(233, 87, 87);
       }
     }

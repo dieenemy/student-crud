@@ -16,6 +16,9 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Students from 'containers/Students/Loadable';
 import Header from 'components/Header';
 import StudentDetail from 'containers/StudentDetail/Loadable';
+import Subjects from 'containers/Subjects/Loadable';
+import SubjectDetail from 'containers/SubjectDetail/Loadable';
+
 import Student from '../Student/Student';
 import Class from '../Class/Class';
 import Subject from '../Subject/Subject';
@@ -46,8 +49,9 @@ export default function App() {
         <Route exact path="/students" component={Students} />
         <Route exact path="/student/:id" component={StudentDetail} />
         <Route exact path="/" component={Student} />
-        <Route path="/classes" component={Class} />
-        <Route path="/subjects" component={Subject} />
+        <Route exact path="/" component={Student} />
+        <Route path="/subjects" component={Subjects} />
+        {/* <Route path="/subjects" component={Subject} /> */}
         <Route path="" component={NotFoundPage} />
       </Switch>
       {/* <Footer /> */}

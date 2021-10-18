@@ -1,33 +1,28 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { PencilIcon, XCircleIcon, EyeIcon } from '@heroicons/react/solid';
-import ModalClass from '../../components/Header/ModalClass';
-import ClassModalView from './ClassModalView';
+import ModalSubject from '../../components/Header/ModalSubject';
 
-function ClassChild() {
+function SubjectChild() {
   const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
-  const [isOpenViewModal, setIsOpenViewModal] = useState(false);
   return (
     <ChildContent>
       <span>1</span>
-      <span>Information Technology</span>
+      <span>Pearuss</span>
       <span>
-        <EyeIcon onClick={() => setIsOpenViewModal(true)} />
+        <EyeIcon />
         <PencilIcon onClick={() => setIsOpenUpdateModal(true)} />
         <XCircleIcon />
       </span>
-      <ModalClass
-        titleValue="Update class information"
+      <ModalSubject
+        titleValue="Update subject information"
         open={isOpenUpdateModal}
         onClose={() => setIsOpenUpdateModal(false)}
-      />
-      <ClassModalView
-        open={isOpenViewModal}
-        onClose={() => setIsOpenViewModal(false)}
       />
     </ChildContent>
   );
 }
 
-export default ClassChild;
+export default SubjectChild;
+
 const ChildContent = styled.div``;

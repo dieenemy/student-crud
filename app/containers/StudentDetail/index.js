@@ -27,6 +27,7 @@ import {
   ScoreInfo,
   GroupButton,
 } from './StudentDetail.styled';
+import UpdateScoreModal from './UpdateScoreModal';
 export function StudentDetail({ match, fetchStudent, student }) {
   useInjectReducer({ key: 'studentDetail', reducer });
   useInjectSaga({ key: 'studentDetail', saga });
@@ -34,6 +35,7 @@ export function StudentDetail({ match, fetchStudent, student }) {
   const [inputValue, setInputValue] = useState(10);
 
   const { id } = match.params;
+  const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
 
   useEffect(() => {
     if (!student || student.id !== id) {
@@ -96,12 +98,18 @@ export function StudentDetail({ match, fetchStudent, student }) {
             onChange={e => setInputValue(e.target.value)}
           />
           <GroupButton>
-            <button type="button">Update Scores</button>
+            <button type="button" onClick={() => setIsOpenUpdateModal(true)}>
+              Update Scores
+            </button>
             <Link to="/">
               <button type="button">Return</button>
             </Link>
           </GroupButton>
         </ScoreInfo>
+        <UpdateScoreModal
+          open={isOpenUpdateModal}
+          onClose={() => setIsOpenUpdateModal(false)}
+        />
       </Container>
     </Main>
   );

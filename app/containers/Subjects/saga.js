@@ -20,11 +20,11 @@ import {
 
 // Individual exports for testing
 export function* subjectsSaga() {
+  console.log('regender...');
   // See example in containers/HomePage/saga.js
   const requestURL = `http://10.9.11.134:8080/api/subjects?search&page=1&limit=5`;
   try {
     const subjects = yield call(request, requestURL);
-
     yield put(getSubjectSuccess(subjects));
   } catch (err) {
     yield put(getSubjectFailed(err));
@@ -48,7 +48,7 @@ export function* createSubjectSaga(action) {
 
 export function* deleteSubjectSaga(action) {
   const { id } = action;
-  const requestURL = `https://jsonplaceholder.typicode.com/users/${id}`;
+  const requestURL = `http://10.9.11.134:8080/api/subjects/${id}`;
   const options = {
     method: 'DELETE',
   };
@@ -97,6 +97,7 @@ export default function* Subjects() {
   yield takeLatest(constants.POST_SUBJECT_REQUEST, createSubjectSaga);
   yield takeLatest(constants.DELETE_SUBJECT_REQUEST, deleteSubjectSaga);
   yield takeLatest(constants.UPDATE_SUBJECT_REQUEST, updateSubjectSaga);
-  yield takeLatest(constants.UPDATE_SUBJECT_SUCCESS, subjectsSaga);
   yield takeLatest(constants.SEARCH_SUBJECT_REQUEST, searchSubjectsSaga);
+  yield takeLatest(constants.UPDATE_SUBJECT_SUCCESS, subjectsSaga);
+  yield takeLatest(constants.DELETE_SUBJECT_FAILED, subjectsSaga);
 }

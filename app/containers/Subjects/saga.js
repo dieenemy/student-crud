@@ -20,7 +20,6 @@ import {
 
 // Individual exports for testing
 export function* subjectsSaga() {
-  console.log('regender...');
   // See example in containers/HomePage/saga.js
   const requestURL = `http://10.9.11.134:8080/api/subjects?search&page=1&limit=5`;
   try {

@@ -14,17 +14,19 @@ import { compose } from 'redux';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import { CakeIcon, UserIcon, LocationMarkerIcon } from '@heroicons/react/solid';
-import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import makeSelectStudentDetail from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { getStudent } from './actions';
-// import {
-//   StudentInfo,
-//   SubjectInfo,
-//   CancelButton,
-// } from '../Student/StudentModalView.styled';
-
+import {
+  Main,
+  Container,
+  StudentInfoCol,
+  SubjectInfo,
+  ScoreInfo,
+  GroupButton,
+} from './StudentDetail.styled';
 export function StudentDetail({ match, fetchStudent, student }) {
   useInjectReducer({ key: 'studentDetail', reducer });
   useInjectSaga({ key: 'studentDetail', saga });
@@ -39,65 +41,6 @@ export function StudentDetail({ match, fetchStudent, student }) {
       fetchStudent(id);
     }
   }, []);
-
-  const Main = styled.div`
-    background-color: #f4ffef;
-    height: calc(100vh - 110px);
-  `;
-
-  const Container = styled.div`
-    display: flex;
-    margin-left: calc(260px + 20vw);
-    margin-top: 2rem;
-    height: calc(100vh - 300px);
-    width: 40vw;
-    border: 1px solid lightgray;
-    border-radius: 4px;
-
-    display: flex;
-    > * {
-      flex: 1;
-    }
-
-    button {
-      color: white;
-    }
-  `;
-  const StudentInfoCol = styled.div`
-    padding: 2rem 4rem;
-    border-right: 1px solid lightgray;
-    display: flex;
-    flex-direction: column;
-
-    p {
-      display: flex;
-      align-items: center;
-      svg {
-        height: 2rem;
-        width: 2rem;
-        margin-top: -4px;
-        margin-right: 8px;
-      }
-    }
-  `;
-  const SubjectInfo = styled.div`
-    display: flex;
-    flex-direction: column;
-    row-gap: 2rem;
-    padding: 4.2rem 4rem;
-    border-right: 1px solid lightgray;
-  `;
-
-  const ScoreInfo = styled.div`
-    display: flex;
-    flex-direction: column;
-    padding: 4rem;
-    row-gap: 2rem;
-    input {
-      border: none;
-      background-color: inherit;
-    }
-  `;
 
   return (
     <Main>
@@ -152,10 +95,12 @@ export function StudentDetail({ match, fetchStudent, student }) {
             value={inputValue}
             onChange={e => setInputValue(e.target.value)}
           />
-          {/* <CancelButton>
+          <GroupButton>
             <button type="button">Update Scores</button>
-            <button type="button">Return</button>
-          </CancelButton> */}
+            <Link to="/">
+              <button type="button">Return</button>
+            </Link>
+          </GroupButton>
         </ScoreInfo>
       </Container>
     </Main>

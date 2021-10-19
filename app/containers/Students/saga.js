@@ -12,8 +12,8 @@ import {
   UPDATE_STUDENT_REQUEST,
 } from './constants';
 import {
-  getUsersSuccess,
-  getUsersFailed,
+  getStudentRequestSuccess,
+  getStudentRequestFailed,
   deleteStudentSuccess,
   deleteStudentFailed,
   createStudentSuccess,
@@ -22,7 +22,7 @@ import {
   updateStudentFailed,
 } from './actions';
 
-export function* studentsSaga(action) {
+export function* getStudentsSaga(action) {
   const { obj } = action;
   // See example in containers/HomePage/saga.js
   const requestURL = `http://10.9.11.134:8080/api/students?${new URLSearchParams(
@@ -30,9 +30,9 @@ export function* studentsSaga(action) {
   )}`;
   try {
     const students = yield call(request, requestURL);
-    yield put(getUsersSuccess(students));
+    yield put(getStudentRequestSuccess(students));
   } catch (err) {
-    yield put(getUsersFailed(err));
+    yield put(getStudentRequestFailed(err));
   }
 }
 
@@ -90,7 +90,7 @@ export function* updateStudentSaga(action) {
 }
 
 export default function* Students() {
-  yield takeLatest(GET_STUDENTS_REQUEST, studentsSaga);
+  yield takeLatest(GET_STUDENTS_REQUEST, getStudentsSaga);
   yield takeLatest(DELETE_STUDENT_REQUEST, deleteStudentSaga);
   yield takeLatest(CREATE_STUDENT_REQUEST, createStudentSaga);
   yield takeLatest(UPDATE_STUDENT_REQUEST, updateStudentSaga);

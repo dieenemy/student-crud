@@ -12,28 +12,28 @@ export function defaultAction() {
   };
 }
 
-export function getUsers(obj) {
+export function getStudentRequest(obj) {
   return {
     type: constants.GET_STUDENTS_REQUEST,
     obj,
   };
 }
 
-export function getUsersSuccess(students) {
+export function getStudentRequestSuccess(students) {
   return {
     type: constants.GET_STUDENTS_SUCCESS,
     students,
   };
 }
 
-export function getUsersFailed(errors) {
+export function getStudentRequestFailed(errors) {
   return {
     type: constants.GET_STUDENTS_FAILED,
     errors,
   };
 }
 
-export function deleteStudent(id) {
+export function deleteStudentRequest(id) {
   return {
     type: constants.DELETE_STUDENT_REQUEST,
     id,

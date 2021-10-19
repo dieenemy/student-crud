@@ -7,7 +7,11 @@ import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import { MainContent, Title } from './Student.styled';
 import StudentChild from './StudentChild';
-import { getUsers, deleteStudent, createStudent } from '../Students/actions';
+import {
+  getStudentRequest,
+  deleteStudentRequest,
+  createStudent,
+} from '../Students/actions';
 import makeSelectStudents, {
   makeSelectLoading,
   makeSelectError,
@@ -68,8 +72,8 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchStudents: () => dispatch(getUsers()),
-    removeStudent: id => dispatch(deleteStudent(id)),
+    fetchStudents: () => dispatch(getStudentRequest()),
+    removeStudent: id => dispatch(deleteStudentRequest(id)),
     createStudentt: student => dispatch(createStudent(student)),
   };
 }

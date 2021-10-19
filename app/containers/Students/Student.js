@@ -7,7 +7,7 @@
 // import { useInjectReducer } from 'utils/injectReducer';
 // import { MainContent, Title } from './Student.styled';
 // import StudentChild from './StudentChild';
-// import { getUsers, deleteStudent, createStudent } from '../Students/actions';
+// import { getStudentRequest, deleteStudent, createStudent } from '../Students/actions';
 // import makeSelectStudents, {
 //   makeSelectLoading,
 //   makeSelectError,
@@ -72,7 +72,7 @@
 
 // function mapDispatchToProps(dispatch) {
 //   return {
-//     fetchStudents: () => dispatch(getUsers()),
+//     fetchStudents: () => dispatch(getStudentRequest()),
 //     removeStudent: id => dispatch(deleteStudent(id)),
 //     createStudentt: student => dispatch(createStudent(student)),
 //   };

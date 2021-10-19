@@ -7,7 +7,7 @@ import { createStructuredSelector } from 'reselect';
 import { ChildContent } from './StudentChild.styled';
 import ModalStudent from '../../components/Header/ModalStudent';
 import StudentModalView from './StudentModalView';
-import { deleteStudent } from './actions';
+import { deleteStudentRequest } from './actions';
 import {
   makeSelectLoading,
   makeSelectError,
@@ -21,7 +21,7 @@ function StudentChild({
   address,
   gender,
   birthday,
-  removeStudent,
+  deleteStudent,
   success,
   error,
   message,
@@ -44,7 +44,7 @@ function StudentChild({
       <span>
         <EyeIcon onClick={() => setIsOpenViewUpdateModal(true)} />
         <PencilIcon onClick={() => setIsOpenUpdateModal(true)} />
-        <XCircleIcon onClick={() => removeStudent(id)} />
+        <XCircleIcon onClick={() => deleteStudent(id)} />
       </span>
       <ModalStudent
         titleValue="Update student information"
@@ -70,7 +70,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    removeStudent: id => dispatch(deleteStudent(id)),
+    deleteStudent: id => dispatch(deleteStudentRequest(id)),
   };
 }
 const withConnect = connect(

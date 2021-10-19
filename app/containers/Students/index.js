@@ -7,7 +7,7 @@ import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import { MainContent, Title } from './Student.styled';
 import StudentChild from './StudentChild';
-import { getUsers } from './actions';
+import { getStudentRequest } from './actions';
 import makeSelectStudents, {
   makeSelectLoading,
   makeSelectError,
@@ -20,7 +20,7 @@ import reducer from './reducer';
 import LoadingIndicator from '../../components/LoadingIndicator';
 
 function Student({
-  fetchStudents,
+  getStudents,
   students,
   recordsTotal,
   recordsFiltered,
@@ -39,7 +39,7 @@ function Student({
     setCurrentPage(preValue => preValue + 1);
   };
   useEffect(() => {
-    fetchStudents({
+    getStudents({
       search: '',
       page: currentPage,
       limit: 3,
@@ -95,7 +95,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchStudents: obj => dispatch(getUsers(obj)),
+    getStudents: obj => dispatch(getStudentRequest(obj)),
   };
 }
 const withConnect = connect(

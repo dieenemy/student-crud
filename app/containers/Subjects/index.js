@@ -20,15 +20,9 @@ import saga from './saga';
 import { MainContent } from './Subject.styled';
 import SubjectChild from './SubjectChild';
 
-import {
-  getSubject,
-  createSubject,
-  removeSubject,
-  updateSubject,
-  searchSubject,
-} from './actions';
+import { getSubject, updateSubject } from './actions';
 
-export function Subjects({ fetchSubjects }) {
+export function Subjects({ fetchSubjects, subjects, updSubject }) {
   useInjectReducer({ key: 'subjects', reducer });
   useInjectSaga({ key: 'subjects', saga });
 
@@ -49,9 +43,13 @@ export function Subjects({ fetchSubjects }) {
           <span>Name</span>
           <span>More</span>
         </div>
-        <SubjectChild />
-        <SubjectChild />
-        <SubjectChild />
+        {subjects.map(subject => (
+          <SubjectChild
+            key={subject.id}
+            subject={subject}
+            updSubject={updSubject}
+          />
+        ))}
         <button type="button">Load More</button>
       </MainContent>
     </div>
@@ -60,6 +58,12 @@ export function Subjects({ fetchSubjects }) {
 
 Subjects.propTypes = {
   fetchSubjects: PropTypes.func,
+  updSubject: PropTypes.func,
+  subjects: PropTypes.array,
+};
+
+Subjects.defaultProps = {
+  subjects: [],
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -69,11 +73,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     fetchSubjects: () => dispatch(getSubject()),
-    postSubject: () => dispatch(createSubject({ name: 'diem', age: '18' })),
-    deleteSubject: () => dispatch(removeSubject(1)),
-    updateSubject: () =>
-      dispatch(updateSubject({ id: 1, name: 'diem', age: '18' })),
-    searchSubject: () => dispatch(searchSubject('diem')),
+    updSubject: subject => dispatch(updateSubject(subject)),
   };
 }
 

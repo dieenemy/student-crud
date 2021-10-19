@@ -21,9 +21,10 @@ import {
 // Individual exports for testing
 export function* subjectsSaga() {
   // See example in containers/HomePage/saga.js
-  const requestURL = `https://jsonplaceholder.typicode.com/users?limit=10`;
+  const requestURL = `http://10.9.11.134:8080/api/subjects?search&page=1&limit=5`;
   try {
     const subjects = yield call(request, requestURL);
+
     yield put(getSubjectSuccess(subjects));
   } catch (err) {
     yield put(getSubjectFailed(err));
@@ -61,10 +62,16 @@ export function* deleteSubjectSaga(action) {
 
 export function* updateSubjectSaga(action) {
   const { subject } = action;
-  const requestURL = `https://jsonplaceholder.typicode.com/users${subject.id}`;
+  const requestURL = `http://10.9.11.134:8080/api/subjects/${subject.id}`;
+  const newSubject = { ...subject };
+  delete newSubject.id;
   const options = {
     method: 'PUT',
-    body: JSON.stringify(subject),
+    body: JSON.stringify(newSubject),
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
   };
   try {
     const response = yield call(request, requestURL, options);
@@ -90,5 +97,6 @@ export default function* Subjects() {
   yield takeLatest(constants.POST_SUBJECT_REQUEST, createSubjectSaga);
   yield takeLatest(constants.DELETE_SUBJECT_REQUEST, deleteSubjectSaga);
   yield takeLatest(constants.UPDATE_SUBJECT_REQUEST, updateSubjectSaga);
+  yield takeLatest(constants.UPDATE_SUBJECT_SUCCESS, subjectsSaga);
   yield takeLatest(constants.SEARCH_SUBJECT_REQUEST, searchSubjectsSaga);
 }

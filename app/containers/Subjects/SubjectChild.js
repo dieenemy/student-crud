@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import { PencilIcon, XCircleIcon, EyeIcon } from '@heroicons/react/solid';
 import ModalSubject from '../../components/Header/ModalSubject';
 
-function SubjectChild() {
+function SubjectChild({ subject, updSubject }) {
   const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
   return (
     <ChildContent>
-      <span>1</span>
-      <span>Pearuss</span>
+      <span>{subject.id}</span>
+      <span>{subject.name}</span>
       <span>
         <EyeIcon />
         <PencilIcon onClick={() => setIsOpenUpdateModal(true)} />
@@ -18,6 +18,8 @@ function SubjectChild() {
         titleValue="Update subject information"
         open={isOpenUpdateModal}
         onClose={() => setIsOpenUpdateModal(false)}
+        updSubject={updSubject}
+        subject={subject}
       />
     </ChildContent>
   );

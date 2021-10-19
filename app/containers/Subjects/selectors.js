@@ -18,7 +18,7 @@ const selectSubjectsDomain = state => state.subjects || initialState;
 const makeSelectSubjects = () =>
   createSelector(
     selectSubjectsDomain,
-    substate => substate,
+    subjectState => subjectState.subjects.data,
   );
 
 export default makeSelectSubjects;
